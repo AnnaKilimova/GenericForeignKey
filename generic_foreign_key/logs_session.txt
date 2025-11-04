@@ -1,0 +1,45 @@
+Script started on Tue Nov  4 10:04:06 2025
+[1m[7m%[27m[1m[0m                                                                                ]7;file://MacBook-Air-Kilimova.local/Users/kilimovaann/GenericForeignKey/generic_foreign_key[0m[27m[24m[Jkilimovaann@MacBook-Air-Kilimova generic_foreign_key % [K[?2004h[7mpython manage.py shell[27m[22D[27mp[27my[27mt[27mh[27mo[27mn[27m [27mm[27ma[27mn[27ma[27mg[27me[27m.[27mp[27my[27m [27ms[27mh[27me[27ml[27ml[?2004l
+[32;1m10 objects imported automatically (use -v 2 for details).
+
+[0mPython 3.11.3 (v3.11.3:f3909b8bc8, Apr  4 2023, 20:12:10) [Clang 13.0.0 (clang-1300.0.29.30)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>> from django.contrib.auth import get_user_model
+>>> from users.models import Profile
+>>> from blog.models import Post, Comment
+>>> from core.models import ActionLog
+>>> User = get_user_model()
+>>> user_1 = User.objects.create_user(username='user_1', password='1234')
+>>> user_2 = User.objects.create_user(username='user_2', password='1234')
+>>> profile_for_user_1 = Profile.objects.create(user=user_1,  biography="Hi, I'm  User_1!", city='Manchester',  birth_date='1995-01-12')
+>>> profile_for_user_2 = Profile.objects.create( user=user_2, city='Manchester') 
+>>> post1 = Post.objects.create( title='First post', content="This is my first p ost", author=user_1)
+>>> post2 = Post.objects.create(title='Second post', content='Hello world',  aut hor=user_2)
+>>> comment1 = Comment.objects.create( post=post1, author=user_2, content="Nice  post, User_1!")
+>>> comment2 = Comment.objects.create( post=post2, author=user_1, content="Thank s, User_2!")
+>>> ActionLog.objects.create(action_type='create', user=user_1, content_object=p ost1)
+<ActionLog: ActionLog object (29)>
+>>> ActionLog.objects.create(action_type='update', user=user_1, content_object=p ost1)
+<ActionLog: ActionLog object (30)>
+>>> ActionLog.objects.create(action_type='create', user=user_2, content_object=c omment1)
+<ActionLog: ActionLog object (31)>
+>>> ActionLog.objects.create(action_type='delete', user=user_1, content_object=c omment2)
+<ActionLog: ActionLog object (32)>
+>>> ActionLog.objects.create(action_type='update', user=user_2, content_object=p ost2)
+<ActionLog: ActionLog object (33)>
+>>> ActionLog.objects.create(action_type='create', user=user_2, content_object=p rofile_for_user_2)
+<ActionLog: ActionLog object (34)>
+>>> ActionLog.objects.create(action_type='update', user=user_1, content_object=p rofile_for_user_1)
+<ActionLog: ActionLog object (35)>
+>>> ActionLog.objects.all()
+<QuerySet [<ActionLog: ActionLog object (29)>, <ActionLog: ActionLog object (30)>, <ActionLog: ActionLog object (31)>, <ActionLog: ActionLog object (32)>, <ActionLog: ActionLog object (33)>, <ActionLog: ActionLog object (34)>, <ActionLog: ActionLog object (35)>]>
+>>> exit()
+[1m[7m%[27m[1m[0m                                                                                ]7;file://MacBook-Air-Kilimova.local/Users/kilimovaann/GenericForeignKey/generic_foreign_key[0m[27m[24m[Jkilimovaann@MacBook-Air-Kilimova generic_foreign_key % [K[?2004heexit[?2004l
+
+Saving session...
+...copying shared history...
+...saving history...truncating history files...
+...completed.
+
+Script done on Tue Nov  4 10:07:05 2025
